@@ -1,6 +1,6 @@
 package by.kolodyuk.jpa.onetoonelazy;
 
-import by.kolodyuk.jpa.onetoonelazy.model.Parent;
+import by.kolodyuk.jpa.onetoonelazy.model.ParentLookup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ public class LazyLookupTest {
     EntityManager entityManager;
 
     @Test
-    public void test() {
-        Parent parent = entityManager.find(Parent.class, 1L); // First query
+    public void composite() {
+        ParentLookup parentLookup = entityManager.find(ParentLookup.class, 1L);
 
-        assert parent.getId() == 1L;
-        assert parent.getLookup().getId() == 1L; // Still one query
-        assert parent.getLookup().getDescription().equals("firstDescription"); // Second query
+        assert parentLookup.getId() == 1L;
+        assert parentLookup.getLookupId() == 1L;
+        assert parentLookup.getLookupDescription().equals("firstDescription");
     }
 }
